@@ -8,9 +8,9 @@ typedef struct TStack {
 } TStack;
 
 typedef struct  {
-    struct TStack* first;
-    struct TStack* second;
-} TDoubleStack;
+    struct TStack* main;
+    struct TStack* aux;
+} TQueuefromStack;
 
 
 // Allocates memory for another stack structure and links it to the last or NULL
@@ -45,7 +45,7 @@ int pop(TStack** s){
 }
 
 // Print the stack values
-int print_stack(TStack* s){
+int printstack(TStack* s){
     if (s == NULL){
         return EXIT_FAILURE;
     }
@@ -62,33 +62,42 @@ int print_stack(TStack* s){
 
 }
 
-TDoubleStack* push_d(TDoubleStack* s, int value){
-    s->first = push(s->first, value);
+TQueuefromStack* enqueue(TQueuefromStack* s, int value){
+    s->main = push(s->main, value);
     return s;
 }
 
-int pop_first(TDoubleStack* s){
-    while (s->first != NULL){
-        s->second = push(s->second, pop(&s->first));
+int pop_aux(TQueuefromStack* s){
+    while (s->main != NULL){
+        s->aux = push(s->aux, pop(&s->main));
     }
-    return pop(&s->second);
+    return pop(&s->aux);
 }
 
+int dequeue(TQueuefromStack* ds){
+    int v = pop_aux(ds);
+    while (ds->aux != NULL){
+        ds->main = push(ds->main, pop(&ds->aux));
+    }
+    return v;
+}
 
 int main(void){
 
-    TDoubleStack* dstack = malloc(sizeof(TDoubleStack));
-    dstack = push_d(dstack, 10);
-    dstack = push_d(dstack, 20);
-    dstack = push_d(dstack, 30);
-    dstack = push_d(dstack, 40);    
-    dstack = push_d(dstack, 50);
+    TQueuefromStack* q = malloc(sizeof(TQueuefromStack));
+    q = enqueue(q, 10);
+    q = enqueue(q, 20);
+    q = enqueue(q, 30);
+    q = enqueue(q, 40);    
+    q = enqueue(q, 50);
 
-    print_stack(dstack->first);
+    printstack(q->main);
     
 
-    int popped = pop_first(dstack);
+    int popped = dequeue(q);
     printf("%d\n", popped);
+
+    printstack(q->main);
 
 
     EXIT_SUCCESS;
