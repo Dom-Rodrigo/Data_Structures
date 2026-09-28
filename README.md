@@ -1,11 +1,13 @@
-# Data Structures
+# Data Structures DEC077
 
 
 
-- Stack
+- Vectorial & Dynamic Stacks
 
-- Queue
+- Vectorial & Dynamic Queue
 
 - Stack made with Queues
 
 - Queue made with Stacks
+
+- Doubly Linked Lists
