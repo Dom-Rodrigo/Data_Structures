@@ -11,3 +11,12 @@
 - Queue made with Stacks
 
 - Doubly Linked Lists
+
+
+## Sorting Algorithms:
+
+- Bubble
+- Counting Sort
+- Quick Sort
+- Merge Sort
+- Selection Sort
